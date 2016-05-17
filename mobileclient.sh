@@ -50,11 +50,11 @@ install_mwc_menu() {
         elif [ $MENUVER -lt 10 ]; then
             read -a tagversionarray <<< $TAGVERSIONS
             MWCVERSION=${tagversionarray[$MENUVER]}
-            MWCSTRING=v$MWCVERSION
+            MWCREFSPEC=v$MWCVERSION
         else
             read -a headversionarray <<< $HEADVERSIONS
             MWCVERSION=${headversionarray[(($MENUVER-10))]}
-            MWCSTRING=$MWCVERSION
+            MWCREFSPEC=$MWCVERSION
         fi
     else
         return $RET
@@ -114,33 +114,40 @@ install_mwc_menu() {
         PRIVATEEXT=false
     fi
 
-    log_choice install_mwc $MWCVERSION $MWCNAME $PRIVATEEXT $DATABASE $GITHUBNAME $GITHUBPASS
+    log_choice install_mwc $MWCVERSION $MWCREFSPEC $MWCNAME $PRIVATEEXT $DATABASE $GITHUBNAME $GITHUBPASS
 }
 
 
 # $1 is xtuple version
-# $2 is the instance name
-# $3 is to install private extensions
-# $4 is database name
+# $2 is the git refspec
+# $3 is the instance name
+# $4 is to install private extensions
+# $5 is database name
+# $6 is github username
+# $7 is github password
 install_mwc() {
 
     log "installing web client"
 
     export MWCVERSION=$1
-    export MWCNAME="$2"
+    export MWCREFSPEC=$2
+    export MWCNAME="$3"
 
-    if [ -z "$3" ] || [ ! "$3" = "true" ]; then
+    if [ -z "$4" ] || [ ! "$4" = "true" ]; then
         PRIVATEEXT=false
     else
         PRIVATEEXT=true
     fi
     
-    if [ -z "$4" ] && [ -z "$PGDATABASE" ]; then
+    if [ -z "$5" ] && [ -z "$PGDATABASE" ]; then
         log "No database name passed to install_mwc... exiting."
         do_exit
     else
-        PGDATABASE=$4
+        PGDATABASE=$5
     fi
+
+    export GITHUBNAME=$6
+    export GITHUBPASS=$7
     log_arg $MWCVERSION $MWCNAME $PRIVATEEXT $PGDATABASE
 
     log "Creating xtuple user..."
@@ -167,11 +174,11 @@ install_mwc() {
     log_exec sudo chown -R xtuple.xtuple /opt/xtuple
 
     # main code
-    log_exec sudo su - xtuple -c "cd /opt/xtuple/$MWCVERSION/"$MWCNAME" && git clone https://github.com/xtuple/xtuple.git && cd  /opt/xtuple/$MWCVERSION/"$MWCNAME"/xtuple && git checkout $MWCSTRING && git submodule update --init --recursive && npm install bower && npm install"
+    log_exec sudo su - xtuple -c "cd /opt/xtuple/$MWCVERSION/"$MWCNAME" && git clone https://github.com/xtuple/xtuple.git && cd  /opt/xtuple/$MWCVERSION/"$MWCNAME"/xtuple && git checkout $MWCREFSPEC && git submodule update --init --recursive && npm install bower && npm install"
     # private extensions
     if [ $PRIVATEEXT = "true" ]; then
         log "Installing the commercial extensions"
-        log_exec sudo su xtuple -c "cd /opt/xtuple/$MWCVERSION/"$MWCNAME" && git clone https://"$5":"$6"@github.com/xtuple/private-extensions.git && cd /opt/xtuple/$MWCVERSION/"$MWCNAME"/private-extensions && git checkout $MWCSTRING && git submodule update --init --recursive && npm install"
+        log_exec sudo su xtuple -c "cd /opt/xtuple/$MWCVERSION/"$MWCNAME" && git clone https://"$GITHUBNAME":"$GITHUBPASS"@github.com/xtuple/private-extensions.git && cd /opt/xtuple/$MWCVERSION/"$MWCNAME"/private-extensions && git checkout $MWCREFSPEC && git submodule update --init --recursive && npm install"
     else
         log "Not installing the commercial extensions"
     fi

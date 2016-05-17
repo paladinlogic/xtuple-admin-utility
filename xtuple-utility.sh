@@ -175,7 +175,7 @@ if [ $INSTALLALL ]; then
     download_demo auto $WORKDIR/tmp.backup $XTVERSION $DBTYPE
     restore_database $WORKDIR/tmp.backup $PGDATABASE
     rm -f $WORKDIR/tmp.backup{,.md5sum}
-    install_mwc $XTVERSION $INSTANCE false $PGDATABASE
+    install_mwc $XTVERSION v$XTVERSION $INSTANCE false $PGDATABASE
 fi
 
 # It is okay to run them both, but if either one runs we want to exit after as these
