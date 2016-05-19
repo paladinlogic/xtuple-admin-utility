@@ -176,6 +176,7 @@ if [ $INSTALLALL ]; then
     restore_database $WORKDIR/tmp.backup $PGDATABASE
     rm -f $WORKDIR/tmp.backup{,.md5sum}
     install_mwc $XTVERSION v$XTVERSION $INSTANCE false $PGDATABASE
+    setup_webprint
 fi
 
 # It is okay to run them both, but if either one runs we want to exit after as these

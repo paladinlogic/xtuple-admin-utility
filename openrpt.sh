@@ -88,3 +88,17 @@ remove_xvfb() {
     fi
 
 }
+
+install_xtuple_xvfb() {
+    log "Installing xtuple-Xvfb to /etc/init.d..."
+    log_exec sudo cp $WORKDIR/templates/xtuple-Xvfb /etc/init.d 
+    log_exec sudo chmod 755 /etc/init.d/xtuple-Xvfb 
+    log_exec sudo update-rc.d xtuple-Xvfb defaults
+    log_exec sudo service xtuple-Xvfb start
+}
+
+setup_webprint() {
+    install_openrpt
+    install_xvfb
+    install_xtuple_xvfb
+}
