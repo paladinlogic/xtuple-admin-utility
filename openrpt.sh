@@ -6,11 +6,13 @@ openrpt_menu() {
     while true; do
 
         CC=$(whiptail --backtitle "$( window_title )" --menu "$( menu_title OpenRPT\ Menu )" 0 0 1 --cancel-button "Cancel" --ok-button "Select" \
-            "1" "Install Package" \
-            "2" "Build from source" \
-            "3" "Install xvfb" \
-            "4" "Remove xvfb" \
-            "5" "Return to main menu" \
+            "1" "Install All" \
+            "2" "Install Package" \
+            "3" "Build from source" \
+            "4" "Install xvfb" \
+            "5" "Remove xvfb" \
+            "6" "Install initscript" \
+            "7" "Return to main menu" \
             3>&1 1>&2 2>&3)
         
         RET=$?
@@ -19,11 +21,13 @@ openrpt_menu() {
             break
         else
             case "$CC" in
-            "1") log_choice install_openrpt ;;
-            "2") log_choice build_openrpt ;;
-            "3") log_choice install_xvfb ;;
-            "4") log_choice remove_xvfb ;;
-            "5") break ;;
+            "1") log_choice setup_webprint ;;
+            "2") log_choice install_openrpt ;;
+            "3") log_choice build_openrpt ;;
+            "4") log_choice install_xvfb ;;
+            "5") log_choice remove_xvfb ;;
+            "6") log_choice install_xtuple_xvfb;;
+            "7") break ;;
             *) msgbox "Don't know how you got here! Please report on GitHub >> openrpt_menu $CC" && break ;;
             esac
         fi
