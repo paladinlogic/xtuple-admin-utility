@@ -100,7 +100,8 @@ install_prereqs() {
                                 git \
                                 whiptail \
                                 unzip \
-                                bzip2 wget \
+                                bzip2 \
+                                wget \
                                 curl \
                                 build-essential \
                                 libssl-dev \
