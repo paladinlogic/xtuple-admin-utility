@@ -30,17 +30,60 @@ install_dev_prereqs() {
 
     log "Installing Development Environment pre-requisites..."
     log_exec sudo apt-get update
-    log_exec sudo apt-get -y -qq install libpq-dev libkrb5-dev libmysqlclient-dev libpam0g-dev libperl-dev \
-                                         readline-common libreadline6-dev libsqlite0-dev libssl-dev \
-                                         libldap2-dev libxml2-dev libxslt1-dev zlib1g-dev \
-                                         unixodbc-dev build-essential xorg git perl python \
-                                         "^libxcb.*" libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev \
-                                         flex bison gperf libicu-dev ruby \
-                                         libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libfontconfig1-dev \
-                                         libcap-dev libbz2-dev libgcrypt11-dev libpci-dev libnss3-dev build-essential libxcursor-dev \
-                                         libxcomposite-dev libxdamage-dev libxrandr-dev libdrm-dev  \
-                                         libasound2-dev gperf libcups2-dev libpulse-dev libudev-dev \
-                                         libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libxtst-dev
+    log_exec sudo apt-get -y -qq install libpq-dev \
+                                         libkrb5-dev \
+                                         libmysqlclient-dev \
+                                         libpam0g-dev \
+                                         libperl-dev \
+                                         readline-common \
+                                         libreadline6-dev \
+                                         libsqlite0-dev \
+                                         libssl-dev \
+                                         libldap2-dev \
+                                         libxml2-dev \
+                                         libxslt1-dev \
+                                         zlib1g-dev \
+                                         unixodbc-dev \
+                                         build-essential \
+                                         xorg \
+                                         git \
+                                         perl \
+                                         python \
+                                         "^libxcb.*" \
+                                         libx11-xcb-dev \
+                                         libglu1-mesa-dev \
+                                         libxrender-dev \
+                                         libxi-dev \
+                                         flex \
+                                         bison \
+                                         gperf \
+                                         libicu-dev \
+                                         ruby \
+                                         libssl-dev \
+                                         libxcursor-dev \
+                                         libxcomposite-dev \
+                                         libxdamage-dev \
+                                         libxrandr-dev \
+                                         libfontconfig1-dev \
+                                         libcap-dev \
+                                         libbz2-dev \
+                                         libgcrypt11-dev \
+                                         libpci-dev \
+                                         libnss3-dev \
+                                         build-essential \
+                                         libxcursor-dev \
+                                         libxcomposite-dev \
+                                         libxdamage-dev \
+                                         libxrandr-dev \
+                                         libdrm-dev  \
+                                         libasound2-dev \
+                                         gperf \
+                                         libcups2-dev \
+                                         libpulse-dev \
+                                         libudev-dev \
+                                         libgstreamer0.10-dev \
+                                         libgstreamer-plugins-base0.10-dev \
+                                         libxtst-dev
     RET=$?
     if [ $RET -ne 0 ]; then
         msgbox "There was an error installing pre-requisites. Check the log and correct any issues before trying again."

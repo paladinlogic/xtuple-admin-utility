@@ -95,7 +95,26 @@ install_prereqs() {
         "ubuntu")
                 install_pg_repo
                 sudo apt-get update
-                sudo apt-get -y install axel git whiptail unzip bzip2 wget curl build-essential libssl-dev postgresql-client-$PGVERSION cups python-software-properties openssl libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl perl libavahi-compat-libdnssd-dev python xvfb 
+                sudo apt-get -y install \
+                                axel \
+                                git \
+                                whiptail \
+                                unzip \
+                                bzip2 wget \
+                                curl \
+                                build-essential \
+                                libssl-dev \
+                                postgresql-client-$PGVERSION \
+                                cups \
+                                python-software-properties \
+                                openssl \
+                                libnet-ssleay-perl \
+                                libauthen-pam-perl \
+                                libpam-runtime libio-pty-perl \
+                                perl \
+                                libavahi-compat-libdnssd-dev \
+                                python \
+                                xvfb 
                 RET=$?
                 if [ $RET -ne 0 ]; then
                     msgbox "Something went wrong installing prerequisites for $DISTRO/$CODENAME. Check the log for more info. "
