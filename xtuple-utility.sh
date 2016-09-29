@@ -180,7 +180,7 @@ if [ "${BUILDQT}x" == "truex" ]; then
 fi
 
 # if we were given command line options for installation process them now
-if [ "${INSTALLALL}" == "truex" ]; then
+if [ "${INSTALLALL}x" == "truex" ]; then
     log "Executing full provision..."
     install_postgresql ${PGVERSION}
     drop_cluster ${PGVERSION} main auto
