@@ -34,6 +34,8 @@ while getopts ":acd:Iip:n:H:D:qhx:t:-:" opt; do
         ;;
     I)
         EXIT_AFTER_PREREQS=true
+        INSTALL_PREREQS=true
+        ;;
     i)
         INSTALL_PREREQS=true
         ;;
