@@ -177,11 +177,12 @@ source devenv.sh
 
 # kind of hard to build whiptail menus without whiptail installed
 if [ "${INSTALL_PREREQS}x" == "truex" ]; then
-  log "Installing pre-requisite packages..."
-  install_prereqs
-  if [ "${EXIT_AFTER_PREREQS}x" == "truex" ]; then
-    exit
-  fi
+    log "Installing pre-requisite packages..."
+    install_prereqs
+    install_postgresql ${PGVERSION}
+    if [ "${EXIT_AFTER_PREREQS}x" == "truex" ]; then
+        do_exit
+    fi
 fi
 
 # if we're supposed to build Qt, lets do that before anything else because it takes *FOREVER*
@@ -194,7 +195,6 @@ fi
 # if we were given command line options for installation process them now
 if [ "${INSTALLALL}x" == "truex" ]; then
     log "Executing full provision..."
-    install_postgresql ${PGVERSION}
     drop_cluster ${PGVERSION} main auto
     provision_cluster ${PGVERSION} ${INSTANCE} 5432 "${LANG}" true auto
     prepare_database auto 
