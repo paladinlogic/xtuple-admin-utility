@@ -20,7 +20,7 @@ source logging.sh
 # start with :, which tells it to be silent about errors
 # a doesn't require an argument, so it doesn't have a : after it
 # d does require an argument, so it is indicated by putting a : after the d, and so on
-while getopts ":acd:ip:n:H:D:qhx:t:-:" opt; do
+while getopts ":acd:Iip:n:H:D:qhx:t:-:" opt; do
   case ${opt} in
     a)
         INSTALLALL=true
@@ -31,6 +31,11 @@ while getopts ":acd:ip:n:H:D:qhx:t:-:" opt; do
     d)
         DATABASE=${OPTARG}
         log "Database name set to ${DATABASE} via command line argument -d"
+        ;;
+    I)
+        EXIT_AFTER_PREREQS=true
+    i)
+        INSTALL_PREREQS=true
         ;;
     p)
         PGVERSION=${OPTARG}
@@ -169,8 +174,13 @@ source openrpt.sh
 source devenv.sh
 
 # kind of hard to build whiptail menus without whiptail installed
-log "Installing pre-requisite packages..."
-install_prereqs
+if [ "${INSTALL_PREREQS}x" == "truex" ]; then
+  log "Installing pre-requisite packages..."
+  install_prereqs
+  if [ "${EXIT_AFTER_PREREQS}x" == "truex" ]; then
+    exit
+  fi
+fi
 
 # if we're supposed to build Qt, lets do that before anything else because it takes *FOREVER*
 if [ "${BUILDQT}x" == "truex" ]; then
