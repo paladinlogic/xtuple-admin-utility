@@ -173,14 +173,14 @@ log "Installing pre-requisite packages..."
 install_prereqs
 
 # if we're supposed to build Qt, lets do that before anything else because it takes *FOREVER*
-if [ "${BUILDQT}x" -eq "truex" ]; then
+if [ "${BUILDQT}x" == "truex" ]; then
     log "Building and installing Qt5 from source"
     install_dev_prereqs
     build_qt5
 fi
 
 # if we were given command line options for installation process them now
-if [ "${INSTALLALL}" -eq "truex" ]; then
+if [ "${INSTALLALL}" == "truex" ]; then
     log "Executing full provision..."
     install_postgresql ${PGVERSION}
     drop_cluster ${PGVERSION} main auto
@@ -197,7 +197,7 @@ fi
 
 # It is okay to run them both, but if either one runs we want to exit after as these
 # are expected to be used headlessly.
-if [ "${BUILDQT}x" -eq "truex" ] || [ "${INSTALLALL}x" -q "truex" ]; then
+if [ "${BUILDQT}x" == "truex" ] || [ "${INSTALLALL}x" == "truex" ]; then
     do_exit
 fi
 
