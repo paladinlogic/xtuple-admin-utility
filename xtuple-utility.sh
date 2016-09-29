@@ -51,12 +51,12 @@ while getopts ":acd:Iip:n:H:D:qhx:t:-:" opt; do
     H)
         # Hostname
         NGINX_HOSTNAME=${OPTARG}
-        log "NGINX hostname set to ${NGINX}_HOSTNAME via command line argument -H"
+        log "NGINX hostname set to ${NGINX_HOSTNAME} via command line argument -H"
         ;;
     D)
         # Domain
         NGINX_DOMAIN=${OPTARG}
-        log "NGINX domain set to ${NGINX}_DOMAIN via command line argument -D"
+        log "NGINX domain set to ${NGINX_DOMAIN} via command line argument -D"
         ;;
     q)
         # that is our cue to build the Qt development environment
@@ -203,7 +203,7 @@ if [ "${INSTALLALL}x" == "truex" ]; then
     rm -f ${WORKDIR}/tmp.backup{,.md5sum}
     install_mwc ${XTVERSION} v${XTVERSION} ${INSTANCE} false ${DATABASE}
     install_nginx
-    configure_nginx "${NGINX}_HOSTNAME" "${NGINX}_DOMAIN" "${INSTANCE}-${DATABASE}" true /etc/xtuple/${XTVERSION}/${INSTANCE}/ssl/server.{crt,key} 8443
+    configure_nginx "${NGINX_HOSTNAME}" "${NGINX_DOMAIN}" "${INSTANCE}-${DATABASE}" true /etc/xtuple/${XTVERSION}/${INSTANCE}/ssl/server.{crt,key} 8443
     setup_webprint
 fi
 
